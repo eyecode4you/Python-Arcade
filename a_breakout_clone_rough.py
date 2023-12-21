@@ -1,3 +1,10 @@
+'''
+a_breakout_clone_rough.py
+eyecode4you - 21/12/2023
+
+A rough initial draft of the breakout clone to be refined
+'''
+
 import time
 import pygame
 from pygame.locals import *
