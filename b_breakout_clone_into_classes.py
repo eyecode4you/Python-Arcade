@@ -52,6 +52,22 @@ class Ball:
         """ reset ball position """
         self.start = (screen.get_width() / 2 - self.rect[2] / 2, screen.get_height() / 2)
 
+    def boundary(self):
+        if self.rect[1] <= 0:  # top
+            self.rect[1] = 0
+            self.y *= -1
+        if self.rect[1] >= screen.get_height() - self.rect.height:  # right
+            self.served = False
+            self.x, self.y = self.speed
+            self.rect.topleft = self.start
+            p.reset()
+        if self.rect[0] <= 0:  # left
+            self.rect[0] = 0
+            self.x *= -1
+        if self.rect[0] >= screen.get_width() - self.rect.width:  # right
+            self.rect[0] = screen.get_width() - self.rect.width
+            self.x *= -1
+
 
 screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Breakout Clone")
@@ -94,9 +110,9 @@ while not game_over:
 
     # controls
     pressed = pygame.key.get_pressed()
-    if pressed[K_LEFT]:
+    if pressed[K_a]:
         p.x -= 0.75 * dt
-    if pressed[K_RIGHT]:
+    if pressed[K_d]:
         p.x += 0.75 * dt
     p.paddle_rect[0], p.paddle_rect[1] = p.x, p.y
 
@@ -137,26 +153,7 @@ while not game_over:
     if delete_brick is not None:
         bricks.remove(delete_brick)
 
-    # keep ball within boundary
-    if ball.rect[1] <= 0:  # top
-        ball.rect[1] = 0
-        ball.y *= -1
-
-    if ball.rect[1] >= screen.get_height() - ball.rect.height:  # bottom
-        # reset ball & paddle back to start pos
-        ball.served = False
-        ball.x, ball.y = ball.speed
-        ball.rect.topleft = ball.start
-        p.reset()
-
-    if ball.rect[0] <= 0:  # left
-        ball.rect[0] = 0
-        ball.x *= -1
-
-    if ball.rect[0] >= screen.get_width() - ball.rect.width:  # right
-        ball.rect[0] = screen.get_width() - ball.rect.width
-        ball.x *= -1
-
+    ball.boundary()  # keep ball within boundary
     p.boundary()  # keep paddle within boundary
 
     pygame.display.update()
