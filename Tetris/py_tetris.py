@@ -143,8 +143,6 @@ def find_lines():
 pygame.init()
 screen = pygame.display.set_mode((400, 600))
 pygame.display.set_caption("Py Tetris")
-pygame.mixer.music.load("./resources/funky.mp3")
-pygame.mixer.music.play(-1)
 
 grid_size = 30
 cols = screen.get_width() // grid_size
