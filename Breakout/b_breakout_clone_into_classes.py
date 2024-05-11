@@ -2,7 +2,6 @@ import time
 import pygame
 from pygame.locals import *
 
-
 def title_screen():
     title_start = pygame.image.load("./resources/title_image.png")
     title_start = pygame.transform.scale(title_start, (480, 261))
@@ -11,7 +10,6 @@ def title_screen():
     screen.blit(title_start, title_rect)
     pygame.display.update()
     time.sleep(2)
-
 
 class Paddle:
     def __init__(self):
@@ -34,7 +32,6 @@ class Paddle:
             self.x = screen.get_width() - p.paddle.get_width()
         if self.x < 0:
             self.x = 0
-
 
 class Ball:
     def __init__(self):
@@ -67,7 +64,6 @@ class Ball:
         if self.rect[0] >= screen.get_width() - self.rect.width:  # right
             self.rect[0] = screen.get_width() - self.rect.width
             self.x *= -1
-
 
 screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Breakout Clone")
