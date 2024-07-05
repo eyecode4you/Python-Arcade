@@ -1,5 +1,6 @@
 import pygame
 from player import Player
+from alien import Alien
 
 class GamePlay:
     def __init__(self, screen):
@@ -23,6 +24,10 @@ class GamePlay:
 
         # Player Character
         self.player = Player(screen.get_height() - 100)
+
+        # Aliens
+        self.aliens = []
+        self.aliens.append(Alien(1, 1, 0))
     
     def update(self, events):
         for event in events:
@@ -46,3 +51,5 @@ class GamePlay:
         screen.blit(self.btn_text, (self.btn_rect[0] + (self.btn_width - self.btn_text.get_width()) /2,
                                     self.btn_rect[1] + (self.btn_height - self.btn_text.get_height()) /2))
         self.player.draw(screen)
+        for a in self.aliens:
+            a.draw(screen)
