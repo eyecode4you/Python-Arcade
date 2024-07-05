@@ -36,7 +36,7 @@ class GamePlay:
             for c in range(self.aliencols):
                 self.aliens.append(Alien(c, r, random.randint(0, 1)))
         
-        # border conttrol
+        # border control
         self.left_border = 50
         self.right_border = screen.get_width() - self.left_border
         self.dx = 1
@@ -64,10 +64,10 @@ class GamePlay:
         
         screen.blit(self.btn_text, (self.btn_rect[0] + (self.btn_width - self.btn_text.get_width()) /2,
                                     self.btn_rect[1] + (self.btn_height - self.btn_text.get_height()) /2))
-        self.player.draw(screen)
         for a in self.aliens:
             a.draw(screen)
-        
+        self.player.draw(screen)
+
         # moving alien grid across screen & bouncing off borders
         update_y = False
         if (settings.x_offset + self.aliencols * 32) > self.right_border:
