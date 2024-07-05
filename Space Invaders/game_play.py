@@ -1,6 +1,7 @@
 import pygame
 from player import Player
 from alien import Alien
+import random
 
 class GamePlay:
     def __init__(self, screen):
@@ -13,12 +14,12 @@ class GamePlay:
         # back to menu btn
         self.btn_colour = (0, 0, 170)
         self.btn_over_colour = (255, 50, 50)
-        self.btn_width = 100
-        self.btn_height = 70
+        self.btn_width = 90
+        self.btn_height = 60
         self.btn_rect = [screen.get_width() - self.btn_width,
                          0,
                          self.btn_width, self.btn_height]
-        self.btn_font = pygame.font.Font('fonts/Cyber-BoldRustique.ttf', 30)
+        self.btn_font = pygame.font.Font('fonts/Cyber-BoldRustique.ttf', 20)
         self.btn_text = self.btn_font.render("Back", True, self.text_colour)
         self.mousex, self.mousey = (0, 0)
 
@@ -27,7 +28,12 @@ class GamePlay:
 
         # Aliens
         self.aliens = []
-        self.aliens.append(Alien(1, 1, 0))
+        self.alienrows = 5
+        self.aliencols = 15
+
+        for r in range(self.alienrows):
+            for c in range(self.aliencols):
+                self.aliens.append(Alien(c+1, r, random.randint(0, 1)))
     
     def update(self, events):
         for event in events:
