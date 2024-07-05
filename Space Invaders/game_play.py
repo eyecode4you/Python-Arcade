@@ -39,7 +39,7 @@ class GamePlay:
         # border conttrol
         self.left_border = 50
         self.right_border = screen.get_width() - self.left_border
-        self.dx = 2
+        self.dx = 1
         self.dy = 10
         self.direction = self.dx
     
