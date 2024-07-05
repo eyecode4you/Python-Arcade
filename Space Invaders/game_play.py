@@ -34,7 +34,7 @@ class GamePlay:
 
         for r in range(self.alienrows):
             for c in range(self.aliencols):
-                self.aliens.append(Alien(c+1, r, random.randint(0, 1)))
+                self.aliens.append(Alien(c, r, random.randint(0, 1)))
         
         # border conttrol
         self.left_border = 50
