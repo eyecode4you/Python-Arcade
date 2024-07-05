@@ -15,7 +15,7 @@ class Game:
         self.current_state = state
         clock = pygame.time.Clock()
         while not game_over:
-            clock.tick(20)
+            clock.tick(60)
             events = pygame.event.get()
             for event in events:
                 if event.type == pygame.QUIT:
