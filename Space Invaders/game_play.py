@@ -85,9 +85,18 @@ class GamePlay:
         
         screen.blit(self.btn_text, (self.btn_rect[0] + (self.btn_width - self.btn_text.get_width()) /2,
                                     self.btn_rect[1] + (self.btn_height - self.btn_text.get_height()) /2))
+        
+        # draw player, aliens, alien bullets
         for a in self.aliens:
             a.draw(screen)
         self.player.draw(screen)
+        deadabullets = []
+        for b in settings.abullets:
+            if b.y > screen.get_height():
+                deadabullets.append(b)
+            b.draw(screen)
+        for b in deadabullets:
+            settings.abullets.remove(b)
 
         # moving alien grid across screen & bouncing off borders
         update_y = False
