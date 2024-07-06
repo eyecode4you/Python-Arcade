@@ -1,12 +1,11 @@
-import pygame
-import settings
+import pygame, settings
 from pygame.locals import *
 from pygame.mixer import Sound
 
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, x, y, yspeed):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("images/bullet.png")
+        self.image = pygame.image.load("images/pbullet1.png")
         self.x = x - self.image.get_width() // 2
         self.y = y
         self.rect = self.image.get_rect()
@@ -34,7 +33,10 @@ class Player(pygame.sprite.Sprite):
         # shooting
         self.bullets = []
         self.can_shoot = 0
-        self.shoot_fx = Sound("sounds/shoot.wav")
+        self.shoot_fx = Sound("sounds/shoot.mp3")
+        self.shoot_fx.set_volume(0.25)
+
+        self.hit_fx = Sound("sounds/explode.wav")
 
     def update(self):
         keys = pygame.key.get_pressed()
@@ -59,6 +61,7 @@ class Player(pygame.sprite.Sprite):
         # collision and lives --
         for x in pygame.sprite.spritecollide(self, settings.abullets, 0):
             settings.abullets.remove(x)
+            self.hit_fx.play()
             x.kill()
             self.lives -= 1
 

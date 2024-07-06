@@ -1,9 +1,7 @@
-import pygame
+import pygame, random, settings
 from player import Player
 from alien import Alien
 from explosion import Explosion
-import random
-import settings
 
 class GamePlay:
     def __init__(self, screen):
@@ -53,7 +51,6 @@ class GamePlay:
         self.game_win_title = self.font.render("You Win!", True, self.text_colour)
         self.game_win_title_position = ((screen.get_width() - self.game_win_title.get_width()) // 2, 
                                (screen.get_height() - self.game_win_title.get_height()) // 2)
-
         self.screen = screen
     
     def update(self, events):

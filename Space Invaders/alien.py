@@ -1,11 +1,10 @@
-import pygame
-import settings
+import pygame, settings
 from random import randint
 
 class AlienBullet(pygame.sprite.Sprite):
     def __init__(self, x, y, yspeed):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("images/bullet.png")
+        self.image = pygame.image.load("images/abullet1.png")
         self.x = x - self.image.get_width() // 2
         self.y = y
         self.rect = self.image.get_rect()

@@ -1,5 +1,4 @@
-import pygame
-import settings
+import pygame, settings
 
 class Explosion:
     def __init__(self, x, y):
@@ -16,7 +15,9 @@ class Explosion:
         screen.blit(self.image, [self.x * self.sprite_size + settings.x_offset, 
                                  self.y * self.sprite_size + settings.y_offset, 
                                  self.sprite_size, self.sprite_size],
-                                [self.framex * self.sprite_size, self.framey * self.sprite_size, self.sprite_size, self.sprite_size])
+                                [self.framex * self.sprite_size, 
+                                 self.framey * self.sprite_size, 
+                                 self.sprite_size, self.sprite_size])
         # go through sprite sheet for explosion fx
         self.framex -= 1
         if self.framex < 0:
