@@ -21,8 +21,8 @@ class Bullet(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self, ypos):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load('images/ship.png')
-        self.x = 10
+        self.image = pygame.image.load('images/ship1.png')
+        self.x = settings.screen_size[0] // 2
         self.y = ypos
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
