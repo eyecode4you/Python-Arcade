@@ -1,6 +1,7 @@
 import pygame
 from player import Player
 from alien import Alien
+from explosion import Explosion
 import random
 import settings
 
@@ -42,6 +43,9 @@ class GamePlay:
         self.dx = 1
         self.dy = 10
         self.direction = self.dx
+
+        # explosions
+        self.explosions = []
     
     def update(self, events):
         for event in events:
@@ -55,12 +59,13 @@ class GamePlay:
         self.player.update()
 
         # collision test
-        found = False
         deadbullets = []
         if self.player.bullets != [] and self.aliens != []:
             for b in self.player.bullets:
+                found = False
                 for a in pygame.sprite.spritecollide(b, self.aliens, 0):
                     self.aliens.remove(a)
+                    self.explosions.append(Explosion(a.x, a.y))
                     a.kill()
                     found = True
                 if found:
@@ -100,3 +105,12 @@ class GamePlay:
         
         if update_y:
             settings.y_offset += self.dy
+        
+        # explosion
+        deadexplosions = []
+        for e in self.explosions:
+            e.draw(screen)
+            if e.framey < 0:
+                deadexplosions.append(e)
+        for e in deadexplosions:
+            self.explosions.remove(e)
