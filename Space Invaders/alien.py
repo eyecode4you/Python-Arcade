@@ -25,8 +25,6 @@ class Alien(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.atype = atype
-
-        # alien graphics
         self.frame = 0
         self.image = pygame.image.load('images/aliens_sm.png')
         self.sprite_size = 32 # aliens on sprite sheet are sep. by 32x32 intervals

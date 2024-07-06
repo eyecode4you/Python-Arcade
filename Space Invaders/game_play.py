@@ -8,9 +8,6 @@ import settings
 class GamePlay:
     def __init__(self, screen):
         self.text_colour = (255, 255, 255)
-        self.font = pygame.font.Font('fonts/Cyber-BoldRustique.ttf', 80)
-        self.title = self.font.render("Gameplay", True, self.text_colour)
-        self.title_position = (10, 10)
         self.main_menu = None
 
         # back to menu btn
@@ -46,6 +43,18 @@ class GamePlay:
 
         # explosions
         self.explosions = []
+
+        # game over text
+        self.font = pygame.font.Font('fonts/Cyber-BoldRustique.ttf', 80)
+        self.game_over_title = self.font.render("Game Over!", True, self.text_colour)
+        self.game_over_title_position = ((screen.get_width() - self.game_over_title.get_width()) // 2, 
+                               (screen.get_height() - self.game_over_title.get_height()) // 2)
+        
+        self.game_win_title = self.font.render("You Win!", True, self.text_colour)
+        self.game_win_title_position = ((screen.get_width() - self.game_win_title.get_width()) // 2, 
+                               (screen.get_height() - self.game_win_title.get_height()) // 2)
+
+        self.screen = screen
     
     def update(self, events):
         for event in events:
@@ -53,6 +62,20 @@ class GamePlay:
                 self.mousex, self.mousey = event.pos
                 if self.btn_rect[0] <= self.mousex <= self.btn_rect[0] + self.btn_rect[2] and \
                     self.btn_rect[1] <= self.mousey <= self.btn_rect[1] + self.btn_rect[3]:
+
+                    # reset game
+                    self.player = Player(self.screen.get_height() - 100)
+                    self.aliens = []
+                    self.alienrows = 5
+                    self.aliencols = 15
+                    self.lives = 3
+                    settings.x_offset = 10
+                    settings.y_offset = 50
+                    settings.abullets = []
+                    for r in range(self.alienrows):
+                        for c in range(self.aliencols):
+                            self.aliens.append(Alien(c, r, random.randint(0, 1)))
+
                     return self.main_menu
             if event.type == pygame.MOUSEMOTION:
                 self.mousex, self.mousey = event.pos
@@ -86,10 +109,20 @@ class GamePlay:
         screen.blit(self.btn_text, (self.btn_rect[0] + (self.btn_width - self.btn_text.get_width()) /2,
                                     self.btn_rect[1] + (self.btn_height - self.btn_text.get_height()) /2))
         
+        # draw game over screen
+        if self.player.lives <= 0:
+            screen.blit(self.game_over_title, self.game_over_title_position)
+            return self
+        elif len(self.aliens) <= 0:
+            screen.blit(self.game_win_title, self.game_win_title_position)
+            return self
+
         # draw player, aliens, alien bullets
         for a in self.aliens:
             a.draw(screen)
+        
         self.player.draw(screen)
+        
         deadabullets = []
         for b in settings.abullets:
             if b.y > screen.get_height():
